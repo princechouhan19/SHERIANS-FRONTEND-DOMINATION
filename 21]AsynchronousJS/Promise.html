@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 2rem 1rem;
+      }
+      h1 {
+        font-size: 2.5rem;
+        color: #0d6efd;
+        margin-bottom: 1.5rem;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      p {
+        font-size: 1.1rem;
+        line-height: 1.7;
+        color: #333;
+        padding: 1.5rem 2rem;
+        background: rgba(255, 255, 255, 0.7);
+        border-radius: 16px;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        text-align: left;
+        border-left: 5px solid #0d6efd;
+        margin-bottom: 2rem;
+      }
+      #user-card {
+        max-width: 360px;
+        width: 100%;
+        margin: 0 auto;
+        padding: 2rem;
+        background: #ffffff;
+        border-radius: 20px;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+        text-align: center;
+        transition: transform 0.3s ease;
+      }
+      #user-card:hover {
+        transform: translateY(-5px);
+      }
+      #avatar {
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        margin-bottom: 1.25rem;
+        border: 4px solid #0d6efd;
+        object-fit: cover;
+      }
+      #name {
+        margin: 0 0 0.5rem;
+        font-size: 1.6rem;
+        color: #222;
+        font-weight: 600;
+      }
+      #email {
+        margin: 0 0 0.75rem;
+        color: #555;
+        font-size: 1rem;
+      }
+      #location {
+        margin: 0;
+        color: #777;
+        font-size: 0.95rem;
+      }
+      .loading {
+        font-size: 1.2rem;
+        color: #0d6efd;
+        margin-top: 2rem;
+      }
+
+      pre {
+        background: #2d2d2d;
+        color: #f8f8f2;
+        padding: 1.2rem 1.5rem;
+        border-radius: 8px;
+        overflow-x: auto;
+        font-size: 0.95rem;
+        line-height: 1.5;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        margin-bottom: 2rem;
+      }
+      code {
+        font-family: "Fira Code", "Consolas", monospace;
+      }
+    </style>
+</head>
+<body>
+    <h1>Promise</h1>
+    <p>Promise ka matlab hota hai “vaada” – jaise kisi ne kaha “main data bhejunga”, toh Promise yeh track karta hai ki vaada poora hua ya nahin. Agar data aa gaya toh .then() chalega, warna .catch() pe error milega. Bas, async kaam ko asaan banane ka jugaad hai!</p>
+    <p>
+      A Promise is an object that represents the eventual completion (or failure) of an asynchronous operation and its resulting value. It is a way to handle asynchronous code in a more organized and readable manner.
+    </p>
+    <pre><code>
+// Basic Promise syntax
+new Promise((resolve, reject) => {
+  // Asynchronous operation
+  if (/* operation successful */) {
+    resolve(value); // Resolve the promise with a value
+  } else {
+    reject(error); // Reject the promise with an error
+  }
+})
+.then(result => {
+  // Handle the resolved value
+})
+.catch(error => {
+  // Handle the rejected error
+});
+    </code></pre>
+    <div id="user-card">
+      <div class="loading">Loading user...</div>
+    </div>
+
+    <script>
+        const card = document.getElementById('user-card');
+
+        const parchi = new Promise(function(resolve, reject){
+            fetch(`https://randomuser.me/api/`)
+            .then(raw => raw.json())
+            .then(result=>{
+                if(result.results[0].gender === "male") resolve(result.results[0]);
+                else reject("User is not male");
+            });
+        });
+        parchi.then(user => {
+            card.innerHTML = `
+                <img id="avatar" src="${user.picture.large}" alt="avatar">
+                <h2 id="name">${user.name.first} ${user.name.last}</h2>
+                <p id="email">${user.email}</p>
+                <p id="location">${user.location.city}, ${user.location.country}</p>
+            `;
+            alert("User is male");
+        })
+        parchi.catch(err => {
+            card.innerHTML = `<p style="color:#e74c3c;">Error: ${err}</p>`;
+            alert(err);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Worker </title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 40px;
+            background: #f4f4f4;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        #output {
+            margin-top: 30px;
+            font-size: 18px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <h1>Web Worker Demo</h1>
+    <div id="output">Calculation in progress...</div>
+    <script>
+        document.getElementById('output').textContent = 'Calculating...';
+
+        var nums = Array.from({length:10000} , (a,b)=>b+1); // 1 to 10000
+        const worker = new Worker('worker.js'); // worker.js file se worker create kiya
+        worker.postMessage(nums); // nums array ko worker thread pe bhej diya
+        worker.onmessage = function(e){ // worker thread se ans aaya
+            document.getElementById('output').textContent = 'Result: ' + e.data;
+            console.log(e.data); // ans ko console pe print kiya
+        }
+    </script>
+</body>
+</html>

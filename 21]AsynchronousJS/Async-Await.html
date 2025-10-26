@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Async/Await</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 2rem 1rem;
+      }
+      h1 {
+        font-size: 2.5rem;
+        color: #0d6efd;
+        margin-bottom: 1.5rem;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      p {
+        font-size: 1.1rem;
+        line-height: 1.7;
+        color: #333;
+        padding: 1.5rem 2rem;
+        background: rgba(255, 255, 255, 0.7);
+        border-radius: 16px;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        text-align: left;
+        border-left: 5px solid #0d6efd;
+        margin-bottom: 2rem;
+      }
+      #user-card {
+        max-width: 360px;
+        width: 100%;
+        margin: 0 auto;
+        padding: 2rem;
+        background: #ffffff;
+        border-radius: 20px;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+        text-align: center;
+        transition: transform 0.3s ease;
+      }
+      #user-card:hover {
+        transform: translateY(-5px);
+      }
+      #avatar {
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        margin-bottom: 1.25rem;
+        border: 4px solid #0d6efd;
+        object-fit: cover;
+      }
+      #name {
+        margin: 0 0 0.5rem;
+        font-size: 1.6rem;
+        color: #222;
+        font-weight: 600;
+      }
+      #email {
+        margin: 0 0 0.75rem;
+        color: #555;
+        font-size: 1rem;
+      }
+      #location {
+        margin: 0;
+        color: #777;
+        font-size: 0.95rem;
+      }
+      .loading {
+        font-size: 1.2rem;
+        color: #0d6efd;
+        margin-top: 2rem;
+      }
+
+      pre {
+        background: #2d2d2d;
+        color: #f8f8f2;
+        padding: 1.2rem 1.5rem;
+        border-radius: 8px;
+        overflow-x: auto;
+        font-size: 0.95rem;
+        line-height: 1.5;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        margin-bottom: 2rem;
+      }
+      code {
+        font-family: "Fira Code", "Consolas", monospace;
+      }
+    </style>
+</head>
+<body>
+    <h1>Async/Await</h1>
+    <p>Async/Await ek modern tareeka hai JavaScript mein asynchronous operations handle karne ka. Isse aap asynchronous code likh sakte hain jo synchronous code ki tarah dikhta aur behave karta hai. Isse aapka code padhne, likhne aur maintain karne mein aasan ho jaata hai.</p>
+    <p>Async/Await is a modern way to handle asynchronous operations in JavaScript. It allows you to write asynchronous code that looks and behaves like synchronous code. This makes your code easier to read, write, and maintain.</p>
+    <pre><code>
+        async function abcd() {
+            let a = await fetch('https://randomuser.me/api/');
+            let b = await a.json();
+            console.log(a, b);
+        }
+    </code></pre>
+    <script>
+        // Fetch and display user data using async/await
+        async function loadUser() {
+            try {
+                // Show loading message
+                document.body.innerHTML += '<div class="loading" id="loading">Loading user...</div>';
+
+                // Fetch user data
+                const response = await fetch('https://randomuser.me/api/');
+                const data = await response.json();
+                const user = data.results[0];
+
+                // Remove loading message
+                document.getElementById('loading').remove();
+
+                // Create and display user card
+                const userCard = document.createElement('div');
+                userCard.id = 'user-card';
+                userCard.innerHTML = `
+                    <img id="avatar" src="${user.picture.large}" alt="User Avatar">
+                    <h2 id="name">${user.name.first} ${user.name.last}</h2>
+                    <p id="email">${user.email}</p>
+                    <p id="location">${user.location.city}, ${user.location.country}</p>
+                `;
+                document.body.appendChild(userCard);
+            } catch (error) {
+                // Remove loading message if exists
+                const loading = document.getElementById('loading');
+                if (loading) loading.remove();
+
+                // Show error message
+                document.body.innerHTML += `<p style="color: red;">Error loading user: ${error.message}</p>`;
+            }
+        }
+
+        // Load user when page loads
+        window.addEventListener('DOMContentLoaded', loadUser);
+    </script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>setInterval</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #0d0d0d;
+            color: #e0e0e0;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 3rem 2rem;
+            line-height: 1.8;
+        }
+        .card {
+            background: #1a1a1a;
+            border-radius: 16px;
+            box-shadow: 0 12px 32px rgba(255, 255, 255, 0.08);
+            max-width: 640px;
+            width: 100%;
+            padding: 3rem;
+        }
+        h1 {
+            font-size: 2.25rem;
+            margin-bottom: 1.5rem;
+            color: #fff;
+            letter-spacing: 0.5px;
+        }
+        p {
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+        code {
+            font-family: 'Inter', monospace;
+            background: #222;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+        }
+        .console {
+            background: #0a0a0a;
+            border: 1px solid #444;
+            border-radius: 10px;
+            padding: 1.25rem;
+            font-family: 'Inter', monospace;
+            font-size: 0.95rem;
+            white-space: pre-wrap;
+            overflow-x: auto;
+            margin-bottom: 2rem;
+            min-height: 120px;
+            color: #fff;
+            line-height: 1.7;
+        }
+        .console::before {
+            content: "$ ";
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>setInterval</h1>
+        <p>
+            <code>setInterval</code> executes code repeatedly after a specified delay (in milliseconds).
+            Below you can see the console output.
+        </p>
+        <code>setInterval(() => {
+            console.log('Hello World!');
+        }, 2000);</code>
+
+        <div class="console" id="console">Waiting for execution...</div>
+    </div>
+
+    <script>
+        const consoleBox = document.getElementById('console');
+
+        // Override console.log to display in UI
+        const originalLog = console.log;
+        console.log = (...args) => {
+            originalLog(...args);
+            consoleBox.textContent += args.join(' ') + '\n';
+            consoleBox.scrollTop = consoleBox.scrollHeight;
+        };
+
+        // Auto-run setInterval on page load
+        consoleBox.textContent = 'setInterval started...\n';
+        var count = 0;
+        const Interval = setInterval(()=>{
+            count++;
+            console.log(count + " Sec")
+            if(count === 10){
+                clearInterval(Interval)
+            }
+        },1000)
+    </script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generators</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 2rem 1rem;
+      }
+      h1 {
+        font-size: 2.5rem;
+        color: #0d6efd;
+        margin-bottom: 1.5rem;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      p {
+        font-size: 1.1rem;
+        line-height: 1.7;
+        color: #333;
+        padding: 1.5rem 2rem;
+        background: rgba(255, 255, 255, 0.7);
+        border-radius: 16px;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        text-align: left;
+        border-left: 5px solid #0d6efd;
+        margin-bottom: 2rem;
+      }
+
+      pre {
+        background: #2d2d2d;
+        color: #f8f8f2;
+        padding: 1.2rem 1.5rem;
+        border-radius: 8px;
+        overflow-x: auto;
+        font-size: 0.95rem;
+        line-height: 1.5;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        margin-bottom: 2rem;
+      }
+      code {
+        font-family: "Fira Code", "Consolas", monospace;
+      }
+    </style>
+</head>
+<body>
+    <h1>Generators</h1>
+    <p> Generators aise special functions hain jinhe pause aur resume kiya jaa sakta hai. Inhe define karne ke liye function* syntax use hota hai.</p>
+    <p>
+        Generators are special functions that can be paused and resumed. They are defined using the function* syntax.
+    </p>
+    <pre><code>
+        function* generator() {
+            console.log('printing 1');
+            yield 1; // pauses the function and returns 1
+            console.log('printing 2');
+            yield 2;
+            console.log('printing 3');
+            yield 3;
+        }
+        const ans = generator(); // ans is a generator object
+        console.log(ans.next()); // {value: 1, done: false}
+        console.log(ans.next());
+        console.log(ans.next());
+        console.log(ans.next()); // {value: undefined, done: true}
+    </code></pre>
+    <script>
+       function* getNumbers() {
+        for(let i=0 ; i<11 ; i++) {
+            yield i;
+        }
+       }
+       const ans = getNumbers();
+       console.log(ans.next().value); // {value: 0, done: false}
+       console.log(ans.next().value); // {value: 1, done: false}
+       console.log(ans.next().value); // {value: 2, done: false}
+       console.log(ans.next().value); // {value: 3, done: false}
+       console.log(ans.next().value); // {value: 4, done: false}
+       console.log(ans.next().value); // {value: 5, done: false}
+       console.log(ans.next().value); // {value: 6, done: false}
+       console.log(ans.next().value); // {value: 7, done: false}
+       console.log(ans.next().value); // {value: 8, done: false}
+       console.log(ans.next().value); // {value: 9, done: false}
+       console.log(ans.next().value); // {value: 10, done: false}
+       console.log(ans.next()); // {value: undefined, done: true}
+    </script>
+</body>
+</html>
