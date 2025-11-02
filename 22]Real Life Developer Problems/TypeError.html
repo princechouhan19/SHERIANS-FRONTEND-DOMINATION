@@ -1,0 +1,232 @@
+html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TypeError</title>
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background: linear-gradient(135deg, #f9fafb, #eef2f7);
+  color: #222;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+h1 {
+  text-align: center;
+  margin: 24px 0 32px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  font-size: 2.2em;
+  background: linear-gradient(90deg, #2563eb, #3b82f6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.container {
+  max-width: 720px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(30, 30, 60, 0.1);
+  padding: 40px;
+  backdrop-filter: blur(12px);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.container:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(30, 30, 60, 0.15);
+}
+
+h2 {
+  color: #1e283d;
+  margin: 40px 0 20px;
+  font-size: 1.5em;
+  font-weight: 700;
+  padding: 12px 16px;
+  background: linear-gradient(to right, #f0f3fa 0%, transparent 100%);
+  border-left: 4px solid #2563eb;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+h2:first-of-type {
+  margin-top: 0;
+}
+
+h2:hover {
+  background: linear-gradient(to right, #e2e8f9 0%, transparent 100%);
+  padding-left: 20px;
+}
+
+p {
+  line-height: 1.8;
+  margin: 16px 0;
+  font-size: 1.05em;
+  color: #374151;
+}
+
+pre {
+  background: #1e293b;
+  color: #f8fafc;
+  padding: 20px;
+  border-radius: 12px;
+  font-size: 0.95em;
+  overflow-x: auto;
+  margin: 24px 0;
+  font-family: 'Fira Code', 'Courier New', monospace;
+  line-height: 1.6;
+}
+
+code {
+  font-family: 'Fira Code', 'Courier New', monospace;
+}
+
+.comments {
+  background: linear-gradient(135deg, #f9fafc 0%, #f3f6fb 100%);
+  padding: 28px;
+  border-radius: 14px;
+  margin-top: 40px;
+  box-shadow: 0 4px 16px rgba(39, 97, 255, 0.08);
+  border-left: 5px solid #2563eb;
+  transition: all 0.3s ease;
+}
+
+.comments:hover {
+  box-shadow: 0 6px 24px rgba(39, 97, 255, 0.14);
+  transform: translateX(2px);
+}
+
+.comments h2 {
+  color: #2563eb;
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0 0 20px;
+  font-size: 1.4em;
+}
+
+.comments h2:hover {
+  padding-left: 0;
+}
+
+.comments ul {
+  margin: 0;
+  padding-left: 24px;
+}
+
+.comments ul li {
+  margin-bottom: 14px;
+  font-size: 1em;
+  color: #3b4667;
+  line-height: 1.7;
+  padding-left: 8px;
+}
+
+.comments ul li:last-child {
+  margin-bottom: 0;
+}
+
+.comments ul li::marker {
+  color: #2563eb;
+  font-size: 1.2em;
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 12px;
+  }
+  
+  .container {
+    padding: 24px 20px;
+    border-radius: 16px;
+  }
+  
+  h1 {
+    font-size: 1.8em;
+    margin: 16px 0 24px;
+  }
+  
+  h2 {
+    font-size: 1.3em;
+    margin: 32px 0 16px;
+    padding: 10px 14px;
+  }
+  
+  .comments {
+    padding: 20px;
+    margin-top: 32px;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.5em;
+    letter-spacing: 0.5px;
+  }
+  
+  h2 {
+    font-size: 1.2em;
+  }
+  
+  pre {
+    padding: 16px;
+    font-size: 0.88em;
+  }
+}
+</style>
+</head>
+<body>
+    <h1>TypeError</h1>
+    <p>This example demonstrates how to handle TypeError in JavaScript.</p>
+    <div>
+        <h2>Incorrect Approach</h2>
+        <p>Accessing a property of an undefined object will result in a TypeError.</p>
+        <pre>
+            var obj = {};
+            obj.name; // undefined
+            obj.name.age; // TypeError: cannot read property 'age' of undefined
+        </pre>
+    </div>
+    <div>
+        <h2>Correct Approach</h2>
+        <p>Using optional chaining (?.) to safely access nested properties.</p>
+        <pre>
+            var obj = {};
+            obj?.name;
+            obj?.name?.age;
+        </pre>
+    </div>
+    <!-- Comments and Notes -->
+<div>
+    <h2>Comments</h2>
+    <ul>
+        <li>The incorrect approach directly accesses the property of an undefined object, leading to a TypeError.</li>
+        <li>The correct approach uses optional chaining to safely access nested properties, avoiding the TypeError.</li>
+        <li>Optional chaining (?.) is a feature in JavaScript that allows you to safely access deeply nested properties without having to explicitly check if each reference in the chain is valid.</li>
+        <li>This can help prevent runtime errors and make your code more robust and easier to read.</li>
+    </ul>
+</div>
+    <script>
+        // ❌
+        // var obj = {};
+        // obj.name; // undefined
+        // obj.name.age; // TypeError: cannot read property 'age' of undefined
+
+        // ✅
+        var obj = {};
+        obj?.name;
+        obj?.name?.age;
+    </script>
+</body>
+</html>

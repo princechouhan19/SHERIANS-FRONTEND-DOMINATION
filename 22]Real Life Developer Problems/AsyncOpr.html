@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New User</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body>
+    <div class="w-full min-h-screen bg-zinc-900 text-white p-10 font-['gilroy']">
+        <button id="getuser" class="bg-green-600 px-8 py-2 rounded-md font-semibold text-sm mb-10">Get New User</button>
+        <div id="parent" class="cards flex gap-10 flex-wrap">
+            
+        </div>
+    </div>
+    <script>
+        const getuser = document.querySelector("#getuser")
+
+        function getNewUser(){
+            fetch(`https://randomuser.me/api/`)
+            .then(raw=> raw.json())
+            .then(result=>{
+                const {name , email , gender , picture} = result.results[0];
+
+                document.querySelector("#parent").innerHTML += `<div class="card w-60 p-4 rounded-xl bg-zinc-800">
+                <div class="w-20 h-20 rounded-full mb-3 overflow-hidden">
+                    <img src="${picture.large}" class="w-full h-full fit-cover " alt="">
+                </div>
+                <h3 class="font-semibld text-2xl">${name.first}</h3>
+                <h5 class="text-sm font-semibold opacity-60">${gender}</h3>
+                <h6 class="text-sm opacity-40">${email}</h3>
+                <p class="mt-5 text-xs font-semibold opacity-80">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut dolores modi blanditiis? Officia in voluptate minima harum cum dolor eveniet./p>
+            </div>`
+            })
+        }
+
+        getuser.addEventListener("click" , function(){
+            getNewUser();
+        })
+    </script>
+</body>
+</html>

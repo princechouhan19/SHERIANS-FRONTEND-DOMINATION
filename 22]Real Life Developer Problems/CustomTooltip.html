@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Tooltip</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body>
+    <div class="w-full min-h-[100vh] bg-zinc-900 text-white p-20 font-['gilroy']">
+        <div class="relative w-fit">
+            <button id="hide" class="bg-red-600 px-8 py-2 rounded-md font-semibold mb-10">Tooltip</button>
+            <div class="tooltip hidden w-full absolute text-center -top-1 z-[2] -translate-y-full left-0 bg-green-400 p-1 px-3 font-semibold text-sm rounded-sm">
+                Active
+            </div>
+        </div>
+    </div>
+    <script>
+        document.querySelector("#hide").addEventListener("mouseenter" , function(){
+            document.querySelector(".tooltip").style.display= "initial";
+        })
+
+        document.querySelector("#hide").addEventListener("mouseleave" , function(){
+            document.querySelector(".tooltip").style.display ="";
+        })
+    </script>
+</body>
+</html>

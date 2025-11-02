@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Storage</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body>
+    <div class="w-full h-[100vh] bg-zinc-900 text-white p-10">
+        <h2 id="status" class="font-semibold mb-3">Status: <span>Blocked</span></h2>
+        <button id="block" class="bg-red-600 px-8 py-2 rounded-md">Block</button>
+        <button id="unblock" class="bg-green-600 px-8 py-2 rounded-md">Unblock</button>
+    </div>
+    <script>
+        const block = document.querySelector("#block");
+        const unblock = document.querySelector("#unblock");
+
+        block.addEventListener("click" , function(){
+            localStorage.setItem("block" , true);
+            show();
+        })
+
+        unblock.addEventListener("click" , function(){
+            localStorage.setItem("block" , false);
+            show();
+        })
+
+        function show(){
+            if(localStorage.getItem("block") === 'false'){
+                document.querySelector("#status span").textContent = "Not Blocked";
+            }
+            else{
+                document.querySelector("#status span").textContent = "Blocked"
+            }
+        }
+    </script>
+</body>
+</html> 
